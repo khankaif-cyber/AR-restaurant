@@ -1,0 +1,12 @@
+[
+  {
+    "id": "pizza1",
+    "name": "Pepperoni Pizza",
+    "description": "Classic pepperoni pizza with mozzarella and tomato sauce.",
+    "price": "$12",
+    "image": "./Assets/Images/Pepperoni pizza.png",
+    "modelGlb": "./Assets/Models/gib/Pepperoni-pizza.glb",
+    "poster": "",
+    "thumbnail": "./Assets/Images/Pepperoni pizza.png"
+  }
+]

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AR Restaurant Menu</title>
+  <link rel="stylesheet" href="./styles/main.css" />
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Menu</h1>
+    <p>Tap a dish, then “View in your space.”</p>
+  </header>
+
+  <main id="menu" class="menu-grid" aria-live="polite"></main>
+  
+  <template id="dish-card-tpl">
+    <article class="card"> 
+      <a class="card-link">
+        <img class="card-img" alt="">
+        <div class="card-body">
+          <h2 class="card-title"></h2>
+          <p class="card-desc"></p>
+          <div class="card-meta">
+            <span class="card-price"></span>
+            <span class="card-cta">View</span>
+          </div>
+        </div>
+      </a>
+    </article>
+  </template>
+
+  <script type="module" src="./scripts/app.js"></script>
+</body>
+</html>
+
+
+    <!-- "id": "burger1",
+    "name": "Cheeseburger",
+    "description": "Juicy beef patty with cheese, lettuce, and tomato.",
+    "price": "$8",
+    "modelGlb": "./Assets/Models/Cheeseburger.glb",
+    "modelUsdz": "./Assets/Models/Cheeseburger.usdz",
+    "poster": "./Assets/Images/burger-poster.png",
+    "thumbnail": "./Assets/Images/burger-thumb.jpg"
+  } -->

@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -9,39 +9,134 @@
 </head>
 <body>
   <header class="site-header">
-    <h1>Menu</h1>
+    <h1>AR Restaurant Menu</h1>
     <p>Tap a dish, then “View in your space.”</p>
   </header>
 
   <main id="menu" class="menu-grid" aria-live="polite"></main>
-  
+
   <template id="dish-card-tpl">
-    <article class="card"> 
-      <a class="card-link">
-        <img class="card-img" alt="">
-        <div class="card-body">
-          <h2 class="card-title"></h2>
-          <p class="card-desc"></p>
-          <div class="card-meta">
-            <span class="card-price"></span>
-            <span class="card-cta">View</span>
-          </div>
+    <article class="card">
+      <img class="card-img" alt="">
+      <div class="card-body">
+        <h2 class="card-title"></h2>
+        <p class="card-desc"></p>
+        <div class="card-meta">
+          <span class="card-price"></span>
+          <button class="card-cta">View in your space</button>
         </div>
-      </a>
+      </div>
     </article>
   </template>
 
   <script type="module" src="./scripts/app.js"></script>
 </body>
+</html> -->
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AR Restaurant Menu</title>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ar.js@3.3.2/aframe/build/aframe-ar.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+    header {
+      text-align: center;
+      padding: 1rem;
+    }
+    .menu {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      z-index: 2;
+      position: relative;
+    }
+    .dish-btn {
+      background: #444;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .dish-btn:hover, .dish-btn.active {
+      background: #4cc3ff;
+      color: black;
+      transform: scale(1.05);
+    }
+    a-scene {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AR Restaurant Menu</h1>
+    <p>Tap a dish to view it in AR (move your phone to see the dish in your space)</p>
+  </header>
+
+  <div class="menu">
+    <button class="dish-btn" data-model="./Assets/Models/gib/Pepperoni-pizza.glb">Pepperoni Pizza</button>
+    <button class="dish-btn" data-model="./Assets/Models/gib/Fries.glb">Fries</button>
+    <button class="dish-btn" data-model="./Assets/Models/gib/Burger.glb">Burger</button>
+  </div>
+
+  <!-- AR Scene -->
+  <a-scene
+    vr-mode-ui="enabled: false"
+    embedded
+    arjs="sourceType: webcam; debugUIEnabled: false;"
+  >
+    <a-light type="ambient" intensity="1"></a-light>
+    <a-light type="directional" intensity="0.8" position="2 4 3"></a-light>
+
+    <!-- AR markerless anchor -->
+    <a-entity id="dish-model" position="0 0 0" scale="0.5 0.5 0.5"></a-entity>
+
+    <a-camera gps-camera rotation-reader></a-camera>
+  </a-scene>
+
+  <script>
+    const dishModel = document.getElementById("dish-model");
+    const buttons = document.querySelectorAll(".dish-btn");
+
+    function loadDish(button) {
+      buttons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      const modelPath = button.getAttribute("data-model");
+      dishModel.setAttribute("gltf-model", modelPath);
+      dishModel.setAttribute("rotation", "0 0 0");
+      dishModel.setAttribute("scale", "0.5 0.5 0.5");
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => loadDish(button));
+    });
+
+    // Load first model by default
+    loadDish(buttons[0]);
+  </script>
+</body>
 </html>
-
-
-    <!-- "id": "burger1",
-    "name": "Cheeseburger",
-    "description": "Juicy beef patty with cheese, lettuce, and tomato.",
-    "price": "$8",
-    "modelGlb": "./Assets/Models/Cheeseburger.glb",
-    "modelUsdz": "./Assets/Models/Cheeseburger.usdz",
-    "poster": "./Assets/Images/burger-poster.png",
-    "thumbnail": "./Assets/Images/burger-thumb.jpg"
-  } -->

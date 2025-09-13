@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -14,25 +14,48 @@
   </header>
 
   <main class="dish-container">
-    <model-viewer id="viewer"
-      src="./Assets/Models/gib/Pepperoni-pizza.glb"
-      ios-src=""
-      alt=""
-      ar
-      ar-modes="webxr scene-viewer quick-look"
-      ar-scale="fixed"
-      camera-controls
-      exposure="1"
-      environment-image="neutral"
-      poster=""
-      shadow-intensity="0.4"
-      style="width:100%;max-width:720px;height:60vh;margin:auto;display:block;border-radius:12px;background:#111;">
-      <button slot="ar-button" class="ar-btn">View in your space</button>
-      <div class="progress" slot="progress-bar">
-        <div class="update-bar"></div>
-      </div>
-    </model-viewer>
-
+    <model-viewer 
+    id="viewer"
+    src="./Assets/Models/gib/Pepperoni-pizza.glb"
+    ios-src="./Assets/Models/usdz/Pepperoni-pizza.glb"
+    alt="Nothing But Cheese Pizza"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    ar-scale="fixed"
+    camera-controls
+    auto-rotate
+    style="width:100%;max-width:720px;height:60vh;margin:auto;display:block;border-radius:12px;background:#111;">
+    <button slot="ar-button" class="ar-btn">View in your space</button>
+</model-viewer>
+  <main class="dish-container">
+    <model-viewer 
+    id="Fries"
+    src="./Assets/Models/gib/Fries.glb"
+    ios-src="./Assets/Models/usdz/Pepperoni-pizza.glb"
+    alt="Nothing But Cheese Fries"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    ar-scale="fixed"
+    camera-controls
+    auto-rotate
+    style="width:100%;max-width:720px;height:60vh;margin:auto;display:block;border-radius:12px;background:#111;">
+    <button slot="ar-button" class="ar-btn">View in your space</button>
+</model-viewer>
+  <main class="dish-container">
+    <model-viewer 
+    id="Burger"
+    src="./Assets/Models/gib/Burger.glb"
+    ios-src="./Assets/Models/usdz/Buger.glb"
+    alt="Nothing But Cheese Burger"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    ar-scale="fixed"
+    camera-controls
+    auto-rotate
+    style="width:100%;max-width:720px;height:60vh;margin:auto;display:block;border-radius:12px;background:#111;">
+    <button slot="ar-button" class="ar-btn">View in your space</button>
+</model-viewer>
+  
     <section class="dish-info">
       <p id="dish-desc"></p>
       <p class="price" id="dish-price"></p>
@@ -67,5 +90,72 @@
         .catch(console.error);
     }
   </script>
+</body>
+</html> -->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dish • AR View</title>
+  <link rel="stylesheet" href="../styles/main.css" />
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="back">← Back</a>
+    <h1 id="dish-name">Dish</h1>
+  </header>
+
+  <main class="dish-container">
+    <!-- ✅ Single Model Viewer — will be updated dynamically -->
+    <model-viewer 
+      id="viewer"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      ar-scale="fixed"
+      camera-controls
+      auto-rotate
+      style="width:100%;max-width:720px;height:60vh;margin:auto;display:block;border-radius:12px;background:#111;">
+      <button slot="ar-button" class="ar-btn">View in your space</button>
+    </model-viewer>
+  
+    <section class="dish-info">
+      <p id="dish-desc"></p>
+      <p class="price" id="dish-price"></p>
+    </section>
+  </main>
+
+  <script type="module">
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+
+  if (!id) {
+    document.getElementById('dish-name').textContent = 'Dish not found';
+  } else {
+    fetch('../Data/menu.json')
+      .then(r => r.json())
+      .then(menu => {
+        const dish = menu.find(d => d.id === id);
+        if (!dish) {
+          document.getElementById('dish-name').textContent = 'Dish not found';
+          return;
+        }
+        document.title = `${dish.name} • AR View`;
+        document.getElementById('dish-name').textContent = dish.name;
+        document.getElementById('dish-desc').textContent = dish.description;
+        document.getElementById('dish-price').textContent = dish.price;
+
+        const viewer = document.getElementById('viewer');
+        viewer.setAttribute('src', dish.modelGlb);
+        viewer.setAttribute('ios-src', dish.modelUsdz || dish.modelGlb);
+        viewer.setAttribute('alt', dish.name);
+        if (dish.poster) viewer.setAttribute('poster', dish.poster);
+      })
+      .catch(console.error);
+  }
+</script>
+
 </body>
 </html>

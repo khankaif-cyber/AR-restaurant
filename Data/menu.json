@@ -1,12 +1,32 @@
 [
   {
     "id": "pizza1",
-    "name": "Pepperoni Pizza",
+    "name": "Nothing But Cheese Pizza",
     "description": "Classic pepperoni pizza with mozzarella and tomato sauce.",
     "price": "$12",
-    "image": "./Assets/Images/Pepperoni pizza.png",
+    "image": "./Assets/Images/Pepperoni-pizza.png",
     "modelGlb": "./Assets/Models/gib/Pepperoni-pizza.glb",
-    "poster": "",
-    "thumbnail": "./Assets/Images/Pepperoni pizza.png"
+    "poster": "./Assets/Images/Pepperoni-pizza.png",
+    "thumbnail": "./Assets/Images/Pepperoni-pizza.png"
+  },
+  {
+    "id": "Burger",
+    "name": "Burger",
+    "description": "A delightful mix of fresh vegetables on a crispy crust.",
+    "price": "$15",
+    "image": "./Assets/Images/Burger.png",
+    "modelGlb": "./Assets/Models/gib/Burger.glb",
+    "poster": "./Assets/Images/Burger.png",
+    "thumbnail": "./Assets/Images/Burger.png"
+  },
+  {
+    "id": "Fries",
+    "name": "Fries",
+    "description": "Creamy Alfredo pasta with and parmesan.",
+    "price": "$18",
+    "image": "./Assets/Images/Fries.png",
+    "modelGlb": "./Assets/Models/gib/Fries.glb",
+    "poster": "./Assets/Images/Fries.png",
+    "thumbnail": "./Assets/Images/Fries.png"
   }
 ]

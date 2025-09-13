@@ -52,31 +52,203 @@
 //   })
 //   .catch(console.error);
 
-const menuContainer = document.getElementById("menu");
-const template = document.getElementById("dish-card-tpl");
+// ./scripts/app.js
+// const menu = document.getElementById('menu');
+// const template = document.getElementById('dish-card-tpl').content;
 
-fetch("./data/menu.json")
-  .then(res => res.json())
-  .then(menu => {
-    menu.forEach(dish => {
-      const clone = template.content.cloneNode(true);
-      const link = clone.querySelector(".card-link");
-      const img = clone.querySelector(".card-img");
-      const title = clone.querySelector(".card-title");
-      const desc = clone.querySelector(".card-desc");
-      const price = clone.querySelector(".card-price");
+// // Your JSON data
+// const dishes = [
+//   {
+//     "id": "pizza1",
+//     "name": "Nothing But Cheese Pizza",
+//     "description": "Classic pepperoni pizza with mozzarella and tomato sauce.",
+//     "price": "$12",
+//     "image": "./Assets/Images/Pepperoni pizza.png",
+//     "modelGlb": "./Assets/Models/gib/Pepperoni-pizza.glb",
+//     "poster": "",
+//     "thumbnail": "./Assets/Images/Pepperonipizza.png"
+//   },
+//   {
+//     "id": "Burger",
+//     "name": "Burger",
+//     "description": "A delightful mix of fresh vegetables on a crispy crust.",
+//     "price": "$15",
+//     "image": "./Assets/Images/Burger.png",
+//     "modelGlb": "./Assets/Models/gib/Burger.glb",
+//     "poster": "",
+//     "thumbnail": "./Assets/Images/Burger.png"
+//   },
+//   {
+//     "id": "Fries",
+//     "name": "Fries",
+//     "description": "Creamy Alfredo pasta with and parmesan.",
+//     "price": "$18",
+//     "image": "./Assets/Images/Fries.png",
+//     "modelGlb": "./Assets/Models/gib/Fries.glb",
+//     "poster": "",
+//     "thumbnail": "./Assets/Images/Fries.png"
+//   }
+// ];
 
-      // Fill in data
-      img.src = dish.image;
-      img.alt = dish.name;
-      title.textContent = dish.name;
-      desc.textContent = dish.description;
-      price.textContent = dish.price;
+// dishes.forEach(dish => {
+//   const clone = template.cloneNode(true);
 
-      // Link to dish.html
-      link.href = `./Dishes/dish.html?id=${dish.id}`;
+//   const cardLink = clone.querySelector('.card-link');
+//   const cardImg = clone.querySelector('.card-img');
+//   const cardTitle = clone.querySelector('.card-title');
+//   const cardDesc = clone.querySelector('.card-desc');
+//   const cardPrice = clone.querySelector('.card-price');
+//   const cardCTA = clone.querySelector('.card-cta');
 
-      menuContainer.appendChild(clone);
-    });
-  })
-  .catch(console.error);
+//   // Set card content
+//   cardImg.src = dish.image;
+//   cardImg.alt = dish.name;
+//   cardTitle.textContent = dish.name;
+//   cardDesc.textContent = dish.description;
+//   cardPrice.textContent = dish.price;
+//   cardCTA.textContent = "View in your space";
+
+//   // Create AR model viewer
+//   const modelViewer = document.createElement('model-viewer');
+//   modelViewer.src = dish.modelGlb;
+//   modelViewer.alt = `3D model of ${dish.name}`;
+//   modelViewer.ar = true;
+//   modelViewer.autoRotate = true;
+//   modelViewer.cameraControls = true;
+//   modelViewer.style.width = '100%';
+//   modelViewer.style.height = '300px';
+//   modelViewer.style.display = 'none'; // Hidden initially
+//   modelViewer.style.marginTop = '10px';
+
+//   // Show model-viewer when "View in your space" is clicked
+//   cardCTA.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     modelViewer.style.display = 'block';
+//     modelViewer.scrollIntoView({ behavior: "smooth" });
+//   });
+
+//   // Append model viewer to card
+//   clone.querySelector('.card-body').appendChild(modelViewer);
+
+//   // Append card to menu
+//   menu.appendChild(clone);
+// });
+
+// dishes.forEach(dish => {
+//   const clone = template.cloneNode(true);
+
+//   const cardImg = clone.querySelector('.card-img');
+//   const cardTitle = clone.querySelector('.card-title');
+//   const cardDesc = clone.querySelector('.card-desc');
+//   const cardPrice = clone.querySelector('.card-price');
+//   const cardCTA = clone.querySelector('.card-cta');
+
+//   cardImg.src = dish.image;
+//   cardImg.alt = dish.name;
+//   cardTitle.textContent = dish.name;
+//   cardDesc.textContent = dish.description;
+//   cardPrice.textContent = dish.price;
+
+//   const modelViewer = document.createElement('model-viewer');
+//   modelViewer.src = dish.modelGlb;
+//   modelViewer.alt = `3D model of ${dish.name}`;
+//   modelViewer.ar = true;
+//   modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+//   modelViewer.autoRotate = true;
+//   modelViewer.cameraControls = true;
+//   modelViewer.style.width = '100%';
+//   modelViewer.style.height = '300px';
+//   modelViewer.style.display = 'none';
+//   modelViewer.style.marginTop = '10px';
+
+//   cardCTA.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     modelViewer.style.display = 'block';
+//     modelViewer.scrollIntoView({ behavior: "smooth" });
+//   });
+
+//   clone.querySelector('.card-body').appendChild(modelViewer);
+//   menu.appendChild(clone);
+// });
+
+
+const menu = document.getElementById('menu');
+const template = document.getElementById('dish-card-tpl').content;
+
+// Your JSON data
+const dishes = [
+  {
+    "id": "pizza1",
+    "name": "Nothing But Cheese Pizza",
+    "description": "Classic pepperoni pizza with mozzarella and tomato sauce.",
+    "price": "$12",
+    "image": "./Assets/Images/Pepperoni pizza.png",
+    "modelGlb": "./Assets/Models/gib/Pepperoni-pizza.glb",
+    "poster": "",
+    "thumbnail": "./Assets/Images/Pepperonipizza.png"
+  },
+  {
+    "id": "Burger",
+    "name": "Burger",
+    "description": "A delightful mix of fresh vegetables on a crispy crust.",
+    "price": "$15",
+    "image": "./Assets/Images/Burger.png",
+    "modelGlb": "./Assets/Models/gib/Burger.glb",
+    "poster": "",
+    "thumbnail": "./Assets/Images/Burger.png"
+  },
+  {
+    "id": "Fries",
+    "name": "Fries",
+    "description": "Creamy Alfredo pasta with parmesan.",
+    "price": "$18",
+    "image": "./Assets/Images/Fries.png",
+    "modelGlb": "./Assets/Models/gib/Fries.glb",
+    "poster": "",
+    "thumbnail": "./Assets/Images/Fries.png"
+  }
+];
+
+dishes.forEach(dish => {
+  const clone = template.cloneNode(true);
+
+  const cardImg = clone.querySelector('.card-img');
+  const cardTitle = clone.querySelector('.card-title');
+  const cardDesc = clone.querySelector('.card-desc');
+  const cardPrice = clone.querySelector('.card-price');
+  const cardCTA = clone.querySelector('.card-cta');
+
+  // Set card content
+  cardImg.src = dish.image;
+  cardImg.alt = dish.name;
+  cardTitle.textContent = dish.name;
+  cardDesc.textContent = dish.description;
+  cardPrice.textContent = dish.price;
+  cardCTA.textContent = "View in your space";
+
+  // Create AR model viewer
+  const modelViewer = document.createElement('model-viewer');
+  modelViewer.src = dish.modelGlb;
+  modelViewer.alt = `3D model of ${dish.name}`;
+  modelViewer.ar = true;
+  modelViewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+  modelViewer.autoRotate = true;
+  modelViewer.cameraControls = true;
+  modelViewer.style.width = '100%';
+  modelViewer.style.height = '300px';
+  modelViewer.style.display = 'none'; // Hidden initially
+  modelViewer.style.marginTop = '10px';
+
+  // Show model-viewer when "View in your space" is clicked
+  cardCTA.addEventListener('click', (e) => {
+    e.preventDefault();
+    modelViewer.style.display = 'block';
+    modelViewer.scrollIntoView({ behavior: "smooth" });
+  });
+
+  // Append model viewer to card
+  clone.querySelector('.card-body').appendChild(modelViewer);
+
+  // Append card to menu
+  menu.appendChild(clone);
+});
